@@ -14,6 +14,13 @@ export const palette = {
   offWhite: '#fefdfb',
   white: '#ffffff',
 
+  // Soft Pink Palette
+  softPink: '#d4a5a5',
+  lightPink: '#e8d4d4',
+  palePink: '#f5e8e8',
+  dustyRose: '#c89b9b',
+  roseMauve: '#c4889d',
+
   // Neutrals
   charcoal: '#2a2a2a',
   lightGray: '#e8e5e0',
@@ -45,6 +52,11 @@ export const getCSSVariables = () => `
     --color-pale-beige: ${palette.paleBeige};
     --color-off-white: ${palette.offWhite};
     --color-white: ${palette.white};
+    --color-soft-pink: ${palette.softPink};
+    --color-light-pink: ${palette.lightPink};
+    --color-pale-pink: ${palette.palePink};
+    --color-dusty-rose: ${palette.dustyRose};
+    --color-rose-mauve: ${palette.roseMauve};
     --color-charcoal: ${palette.charcoal};
     --color-light-gray: ${palette.lightGray};
     --color-medium-gray: ${palette.mediumGray};

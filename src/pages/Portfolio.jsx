@@ -1,3 +1,5 @@
+import { palette } from '../palette'
+
 export default function Portfolio() {
   const projects = [
     {
@@ -58,12 +60,20 @@ export default function Portfolio() {
       }}>
         {projects.map(project => (
           <div key={project.id} style={{
-            border: "1px solid #ddd",
+            border: `2px solid ${palette.lightPink}`,
             borderRadius: "8px",
             overflow: "hidden",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-            transition: "transform 0.3s, boxShadow 0.3s",
+            boxShadow: `0 4px 12px ${palette.shadowLight}`,
+            transition: "transform 0.3s ease, boxShadow 0.3s ease",
             cursor: "pointer"
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "translateY(-5px)"
+            e.currentTarget.style.boxShadow = `0 8px 20px ${palette.softPink}40`
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "translateY(0)"
+            e.currentTarget.style.boxShadow = `0 4px 12px ${palette.shadowLight}`
           }}>
             <img 
               src={project.image} 
@@ -90,14 +100,17 @@ export default function Portfolio() {
               <button style={{
                 marginTop: "15px",
                 padding: "8px 16px",
-                backgroundColor: "#4caf50",
+                backgroundColor: palette.softPink,
                 color: "white",
                 border: "none",
                 borderRadius: "4px",
                 cursor: "pointer",
                 fontSize: "14px",
-                fontWeight: "bold"
-              }}>
+                fontWeight: "bold",
+                transition: "backgroundColor 0.2s"
+              }}
+              onMouseEnter={(e) => e.target.style.backgroundColor = palette.dustyRose}
+              onMouseLeave={(e) => e.target.style.backgroundColor = palette.softPink}>
                 View Project
               </button>
             </div>

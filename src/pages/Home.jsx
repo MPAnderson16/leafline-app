@@ -1,4 +1,5 @@
 import heroImage from '../assets/hero-home-image.svg.jpg'
+import { palette } from '../palette'
 
 export default function Home() {
   return (
@@ -206,7 +207,7 @@ export default function Home() {
 
       {/* CTA Section */}
       <div style={{
-        backgroundColor: "#2e7d32",
+        backgroundColor: palette.dustyRose,
         color: "white",
         padding: "60px 40px",
         textAlign: "center"
@@ -222,10 +223,19 @@ export default function Home() {
           fontSize: "16px",
           fontWeight: "bold",
           backgroundColor: "white",
-          color: "#2e7d32",
+          color: palette.dustyRose,
           border: "none",
           borderRadius: "4px",
-          cursor: "pointer"
+          cursor: "pointer",
+          transition: "all 0.2s"
+        }}
+        onMouseEnter={(e) => {
+          e.target.style.backgroundColor = palette.palePink
+          e.target.style.color = palette.dustyRose
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.backgroundColor = "white"
+          e.target.style.color = palette.dustyRose
         }}>
           Get in Touch
         </button>

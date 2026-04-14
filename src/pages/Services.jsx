@@ -1,3 +1,5 @@
+import { palette } from '../palette'
+
 export default function Services() {
   const services = [
     {
@@ -53,8 +55,17 @@ export default function Services() {
         {services.map(service => (
           <div key={service.id} style={{
             backgroundColor: "#f9f9f9",
-            padding: "30px",
-            borderRadius: "8px",
+            padding:`1px solid ${palette.palePink}`,
+            boxShadow: `0 2px 6px ${palette.shadowLight}`,
+            transition: "all 0.3s ease"
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = palette.palePink
+            e.currentTarget.style.boxShadow = `0 4px 12px ${palette.shadowMedium}`
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = "#f9f9f9"
+            e.currentTarget.style.boxShadow = `0 2px 6px ${palette.shadowLight}`
             border: "1px solid #e0e0e0",
             boxShadow: "0 2px 6px rgba(0,0,0,0.08)"
           }}>
@@ -81,14 +92,17 @@ export default function Services() {
                       position: "absolute",
                       left: 0,
                       color: "#4caf50"
-                    }}>✓</span>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <button style={{
-              width: "100%",
+                    }}>✓</span>palette.softPink,
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+              fontSize: "14px",
+              fontWeight: "bold",
+              transition: "backgroundColor 0.2s"
+            }}
+            onMouseEnter={(e) => e.target.style.backgroundColor = palette.dustyRose}
+            onMouseLeave={(e) => e.target.style.backgroundColor = palette.softPink width: "100%",
               padding: "12px",
               backgroundColor: "#4caf50",
               color: "white",

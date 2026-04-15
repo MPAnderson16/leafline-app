@@ -84,6 +84,26 @@
   display: none;
 }
 
+.nav-link-logout {
+  background-color: #d32f2f;
+  color: var(--color-white);
+  padding: 8px 20px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.nav-link-logout:hover {
+  background-color: #b71c1c;
+  color: var(--color-white);
+}
+
+.nav-link-logout::after {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .navbar-container {
     height: 60px;

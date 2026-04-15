@@ -1,4 +1,5 @@
 import { ServiceCard } from './ServiceCard'
+import ComponentBuilder from "../Builder/ComponentBuilder"
 
 export default function Services() {
   const services = [
@@ -40,7 +41,7 @@ export default function Services() {
     }
   ]
 
-  return (
+   return (
     <div style={{ padding: "40px", maxWidth: "1200px", margin: "0 auto" }}>
       <h1>Services</h1>
       <p style={{ fontSize: "18px", color: "#666", marginBottom: "40px" }}>
@@ -50,7 +51,8 @@ export default function Services() {
       <div style={{
         display: "grid",
         gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-        gap: "30px"
+        gap: "30px",
+        marginBottom: "60px"
       }}>
         {services.map(service => (
           <ServiceCard

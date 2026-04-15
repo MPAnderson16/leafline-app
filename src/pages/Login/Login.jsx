@@ -34,8 +34,7 @@ export default function Login() {
         <AuthForm
           isSignUp={isSignUp}
           onSubmit={() => {
-            // Handle successful login
-            alert('Logged in successfully!')
+            // Modal success message is handled in AuthForm
           }}
         />
 

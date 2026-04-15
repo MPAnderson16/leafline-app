@@ -1,38 +1,53 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { supabase } from '../../supabaseClient'
 import { palette } from '../../palette'
+import { Modal } from './Modal'
 
 export const AuthForm = ({ isSignUp, onSubmit }) => {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [modalOpen, setModalOpen] = useState(false)
+  const [modalType, setModalType] = useState('success')
+  const [modalMessage, setModalMessage] = useState('')
+  const [showingSuccessModal, setShowingSuccessModal] = useState(false)
+
+  const showModal = (type, message) => {
+    setModalType(type)
+    setModalMessage(message)
+    setModalOpen(true)
+    if (type === 'success') {
+      setShowingSuccessModal(true)
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
-    setError('')
 
     try {
       if (isSignUp) {
         const { error } = await supabase.auth.signUp({ email, password })
         if (error) {
-          setError(error.message)
+          showModal('error', error.message)
         } else {
-          alert('Check your email for confirmation!')
+          showModal('success', 'Check your email for confirmation!')
           setEmail('')
           setPassword('')
         }
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password })
         if (error) {
-          setError(error.message)
+          showModal('error', error.message)
         } else {
+          showModal('success', 'Welcome back! Click below to go to your dashboard.')
           onSubmit?.()
         }
       }
     } catch (err) {
-      setError('An error occurred. Please try again.')
+      showModal('error', 'An error occurred. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -63,41 +78,47 @@ export const AuthForm = ({ isSignUp, onSubmit }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-        style={inputStyle}
+    <>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          style={inputStyle}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          style={inputStyle}
+        />
+        <button
+          type="submit"
+          disabled={loading}
+          style={{
+            ...buttonStyle,
+            opacity: loading ? 0.6 : 1,
+            cursor: loading ? 'not-allowed' : 'pointer'
+          }}
+          onMouseEnter={(e) => !loading && (e.target.style.backgroundColor = palette.dustyRose)}
+          onMouseLeave={(e) => !loading && (e.target.style.backgroundColor = palette.softPink)}
+        >
+          {loading ? 'Loading...' : (isSignUp ? 'Sign Up' : 'Log In')}
+        </button>
+      </form>
+
+      <Modal
+        type={modalType}
+        message={modalMessage}
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        actionText={showingSuccessModal ? 'Go to Dashboard' : null}
+        onAction={showingSuccessModal ? () => navigate('/dashboard') : null}
       />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-        style={inputStyle}
-      />
-      {error && (
-        <p style={{ color: '#d32f2f', fontSize: '14px', marginBottom: '15px' }}>
-          {error}
-        </p>
-      )}
-      <button
-        type="submit"
-        disabled={loading}
-        style={{
-          ...buttonStyle,
-          opacity: loading ? 0.6 : 1,
-          cursor: loading ? 'not-allowed' : 'pointer'
-        }}
-        onMouseEnter={(e) => !loading && (e.target.style.backgroundColor = palette.dustyRose)}
-        onMouseLeave={(e) => !loading && (e.target.style.backgroundColor = palette.softPink)}
-      >
-        {loading ? 'Loading...' : (isSignUp ? 'Sign Up' : 'Log In')}
-      </button>
-    </form>
+    </>
   )
 }
